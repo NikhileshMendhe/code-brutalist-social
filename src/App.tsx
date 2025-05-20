@@ -71,6 +71,16 @@ const App = () => {
                 <CreatePost />
               </ProtectedRoute>
             } />
+            <Route path="/create/story" element={
+              <ProtectedRoute>
+                <CreatePost type="story" />
+              </ProtectedRoute>
+            } />
+            <Route path="/create/album" element={
+              <ProtectedRoute>
+                <CreatePost type="album" />
+              </ProtectedRoute>
+            } />
             
             {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
