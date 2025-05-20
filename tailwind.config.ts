@@ -96,6 +96,18 @@ export default {
 				'scan-line': {
 					'0%': { transform: 'translateY(0)' },
 					'100%': { transform: 'translateY(100vh)' },
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' },
+				},
+				'pulse': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.5' },
+				},
+				'bounce-subtle': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-5px)' },
 				}
 			},
 			animation: {
@@ -104,6 +116,13 @@ export default {
 				'terminal-blink': 'terminal-blink 1s step-end infinite',
 				'glitch': 'glitch 0.5s ease-in-out',
 				'scan': 'scan-line 8s linear infinite',
+				'float': 'float 3s ease-in-out infinite',
+				'pulse': 'pulse 2s ease-in-out infinite',
+				'bounce-subtle': 'bounce-subtle 2s ease-in-out infinite'
+			},
+			backdropFilter: {
+				'none': 'none',
+				'blur': 'blur(20px)',
 			}
 		}
 	},

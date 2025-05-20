@@ -35,7 +35,7 @@
     --input: 240 10% 20%;
     --ring: 150 100% 50%;
 
-    --radius: 0px;
+    --radius: 0.5rem;
   }
 
   .light {
@@ -67,7 +67,40 @@
     --input: 240 10% 80%;
     --ring: 150 70% 40%;
 
-    --radius: 0px;
+    --radius: 0.5rem;
+  }
+
+  /* Synthwave theme */
+  .synthwave {
+    --background: 260 15% 10%;
+    --foreground: 280 100% 80%;
+
+    --card: 260 15% 15%;
+    --card-foreground: 280 100% 80%;
+
+    --popover: 260 15% 15%;
+    --popover-foreground: 280 100% 80%;
+
+    --primary: 320 100% 60%;
+    --primary-foreground: 260 15% 10%;
+
+    --secondary: 200 100% 60%;
+    --secondary-foreground: 260 15% 10%;
+
+    --muted: 260 15% 20%;
+    --muted-foreground: 280 50% 70%;
+
+    --accent: 190 100% 60%;
+    --accent-foreground: 260 15% 10%;
+
+    --destructive: 0 100% 65%;
+    --destructive-foreground: 260 15% 10%;
+
+    --border: 320 50% 50%;
+    --input: 260 15% 20%;
+    --ring: 320 100% 60%;
+
+    --radius: 0.5rem;
   }
 }
 
@@ -77,7 +110,7 @@
   }
   
   body {
-    @apply bg-background text-foreground font-mono;
+    @apply bg-background text-foreground font-mono transition-colors duration-300;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -107,22 +140,117 @@
 
 @layer components {
   .terminal-card {
-    @apply bg-card border border-terminal-green/30 shadow-md shadow-terminal-green/10 hover:shadow-terminal-green/20 transition-shadow;
+    @apply bg-card border border-terminal-green/30 shadow-md shadow-terminal-green/10 hover:shadow-terminal-green/20 transition-shadow backdrop-blur-sm rounded-md;
   }
   
   .neon-outline {
-    @apply border border-terminal-green shadow-[0_0_5px_theme(colors.terminal.green)];
+    @apply border border-terminal-green shadow-[0_0_10px_theme(colors.terminal.green)] rounded-md;
   }
   
   .pixel-button {
-    @apply bg-terminal-black border border-terminal-green text-terminal-green font-pixel py-2 px-4 hover:bg-terminal-green/20 transition-colors;
+    @apply bg-terminal-black border border-terminal-green text-terminal-green font-pixel py-2 px-4 hover:bg-terminal-green/20 transition-colors rounded-md;
   }
 
   .terminal-input {
-    @apply bg-terminal-black border border-terminal-green/50 text-terminal-green p-2 font-mono focus:outline-none focus:neon-outline w-full;
+    @apply bg-terminal-black border border-terminal-green/50 text-terminal-green p-2 font-mono focus:outline-none focus:neon-outline w-full rounded-md;
   }
 
   .terminal-badge {
-    @apply inline-flex items-center px-2 py-1 rounded-none bg-terminal-green/20 text-terminal-green text-xs font-mono;
+    @apply inline-flex items-center px-2 py-1 rounded-md bg-terminal-green/20 text-terminal-green text-xs font-mono;
   }
+  
+  .glass-card {
+    @apply bg-background/30 backdrop-blur-xl border border-white/10 shadow-lg;
+  }
+  
+  .floating-action-button {
+    @apply fixed bottom-6 right-6 p-4 rounded-full bg-terminal-green text-background shadow-[0_0_15px_theme(colors.terminal.green)] hover:shadow-[0_0_25px_theme(colors.terminal.green)] transition-all duration-300 transform hover:scale-110 z-40;
+  }
+  
+  .emoji-reaction {
+    @apply inline-flex items-center justify-center h-8 min-w-[32px] px-2 rounded-full bg-terminal-green/20 border border-terminal-green/50 text-terminal-green transition-all hover:bg-terminal-green/30 cursor-pointer;
+  }
+}
+
+/* Hover Effects */
+.hover-tilt {
+  transition: transform 0.3s ease;
+}
+
+.hover-tilt:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(2deg);
+}
+
+/* Animated profile borders */
+.profile-border-active {
+  position: relative;
+}
+
+.profile-border-active::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  padding: 3px;
+  background: linear-gradient(45deg, 
+    theme('colors.terminal.green'), 
+    theme('colors.terminal.blue'), 
+    theme('colors.terminal.purple'), 
+    theme('colors.terminal.pink')
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulsing effect */
+.pulse-effect {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 255, 65, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 65, 0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme('colors.background');
+}
+
+::-webkit-scrollbar-thumb {
+  background: theme('colors.terminal.green');
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.terminal.blue');
+}
+
+#root {
+  max-width: 100%;
+  margin: 0 auto;
 }
